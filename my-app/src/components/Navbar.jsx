@@ -1,28 +1,28 @@
-import React from 'react'
-import styled from 'styled-components'
-import Logo from '../assets/image/logo-empresa.png'
-
+import React from 'react';
+import styled from 'styled-components';
+import Logo from '../assets/image/logo-empresa.png';
 
 function Navbar() {
   return (
-    <div>
-      <NavContainer>
-        <img src={Logo}/>
+    <NavContainer>
+      <div>
+        <img src={Logo} alt="Logo de la empresa" />
         <h2>English<span>WorkShop</span></h2>
-        <div>
-          <a href="/">Inicio</a>
-          <a href="/">Caracteristicas</a>
-          <a href="/">Precios</a>
-          <a href="/">Sobre Mi</a>
-
-          <button>Iniciar Sesión</button>
-        </div>
-      </NavContainer>
-    </div>
-  )
+      </div>
+      <div>
+        <a href="/">Inicio</a>
+        <a href="/">Caracteristicas</a>
+        <a href="/">Precios</a>
+        <a href="/">Sobre Mi</a>
+      </div>
+      <div>
+        <button>Iniciar Sesión</button>
+      </div>
+    </NavContainer>
+  );
 }
 
-export default Navbar
+export default Navbar;
 
 const NavContainer = styled.nav`
   background-color: #fff;
@@ -32,27 +32,30 @@ const NavContainer = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 90px;
   box-shadow: 0 5px 80px rgba(0, 0, 0, 0.205);
 
-  h2{
-      font-weight: 400;
-      span{
-          font-weight: bold;
-      }
+  h2 {
+    font-size: 2rem;
+    font-weight: 400;
+    span {
+      font-weight: bold;
+    }
   }
 
-  a{
+  a {
     font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
     color: #000000;
     position: relative;
     text-decoration: none;
-    margin-right: 1rem;
+    margin-right: 3rem;
+    aling-items:centes;
   }
 
-  button{
+  button {
     padding: 0.5rem 0.5rem;
-    font-size: 0.7rem;
+    font-size: 1rem;
     color: #000000;
     background-color: #fff;
     border-radius: 9px;
@@ -60,9 +63,19 @@ const NavContainer = styled.nav`
     transition: all 0.3s ease;
   }
 
-  button:hover{
+  button:hover {
     background-color: #000000;
-    color: #fff
+    color: #fff;
   }
 
+  img {
+    width: 100%;
+    display: felx;
+    max-width: 70px;
+  }
+
+  div:first-child {
+    display: flex;
+    align-items: center;
+  }
 `
