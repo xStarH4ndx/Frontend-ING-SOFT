@@ -63,7 +63,7 @@ const NavContainer = styled.nav`
 
   
   h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 400;
     span {
       font-weight: bold;
@@ -72,7 +72,7 @@ const NavContainer = styled.nav`
 
   a {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: #000000;
     position: relative;
     text-decoration: none;
@@ -94,11 +94,11 @@ const NavContainer = styled.nav`
     background-color: #000000;
     color: #fff;
   }
-
+  //193
   img {
     width: 100%;
     display: felx;
-    max-width: 70px;
+    max-width: 50px;
     margin-left: -30px;
   }
 
