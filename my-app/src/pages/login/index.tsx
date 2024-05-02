@@ -47,7 +47,7 @@ export const LoginPage: React.FC<{}> = () => {
                         position: "relative", 
                         boxShadow: '0 5px 80px rgba(0, 0, 0, 0.305)' 
                     }}>
-                        
+
                         {/* Círculo superior derecho */}
                         <div style={{ 
                             position: "absolute", 
@@ -71,7 +71,7 @@ export const LoginPage: React.FC<{}> = () => {
                             zIndex: -1 
                         }}></div>
                         
-                        <Typography variant="h4" sx={{ textAlign: "center" }}>Iniciar Sesion</Typography>
+                        <Typography variant="h4" sx={{ textAlign: "center" }}>Iniciar Sesión</Typography>
                         <Box component="form" onSubmit={handleSubmit}>
                             <TextField
                                 name="username"
