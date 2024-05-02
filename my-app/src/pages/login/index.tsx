@@ -47,6 +47,7 @@ export const LoginPage: React.FC<{}> = () => {
                         position: "relative", 
                         boxShadow: '0 5px 80px rgba(0, 0, 0, 0.305)' 
                     }}>
+                        
                         {/* Círculo superior derecho */}
                         <div style={{ 
                             position: "absolute", 
