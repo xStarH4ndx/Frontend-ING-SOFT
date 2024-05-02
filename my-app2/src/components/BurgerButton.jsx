@@ -36,7 +36,7 @@ const Burger = styled.div`
   .nav-icon-1 span {
     width: 5px;
     height: 5px;
-    background-color: #fff; /* Cambia el color a negro */
+    background-color: #000000; /* Cambia el color a negro */
     display: block;
     border-radius: 50%;
     position: absolute;
