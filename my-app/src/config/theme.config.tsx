@@ -6,9 +6,10 @@ type ThemeProp = {
 }
 
 export enum themePalette {
-    BG = "#071013",
+    BG = "#fff",
     BLUE = "#1d4ed8",
     FONT_GLOBAL = "'Poppins', sans-serif",
+    BLACK = "#00000",
     //Alert Styles
     ERROR_MAIN = "#f44336",
     BG_ERROR_MAIN = "rgba(244,67,54,0.1)",
@@ -23,9 +24,13 @@ const theme = createTheme({
         primary:{
             main: themePalette.BLUE,
         },
+        text: {
+            primary: themePalette.BLACK,
+        },
     },
     typography:{
-        fontFamily: themePalette.FONT_GLOBAL
+        fontFamily: themePalette.FONT_GLOBAL,
+        
     },
     components:{
         MuiButton:{
