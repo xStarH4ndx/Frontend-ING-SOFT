@@ -25,6 +25,7 @@ export const LoginPage: React.FC<{}> = () => {
         LoginValidate.validate(loginData)
             .then(() => {
                 getSucces(JSON.stringify(loginData));
+                //backend peticion-----------------------
             })
             .catch((error) => {
                 getError(error.message);

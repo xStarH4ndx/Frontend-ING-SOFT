@@ -16,7 +16,7 @@ export const Notification: React.FC<NotificationProps> = ({open, msg, severity, 
             onClose={handleClose}
         >
             <Alert onClose={handleClose} severity={severity}>
-                <Typography>{msg}</Typography>
+                <Typography style={{color:"#000"}}>{msg}</Typography>
             </Alert>
         </Snackbar>
     );

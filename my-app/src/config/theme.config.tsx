@@ -12,7 +12,9 @@ export enum themePalette {
     BLACK = "#00000",
     //Alert Styles
     ERROR_MAIN = "#f44336",
-    BG_ERROR_MAIN = "rgba(244,67,54,0.1)",
+    BG_ERROR_MAIN = "rgba(244,67,54,0.4)",
+    SUCCESS_MAIN = "#4caf50",
+    BG_SUCCESS_MAIN = "rgba(76, 175, 80, 0.4)",
 }
 
 const theme = createTheme({
@@ -54,8 +56,12 @@ const theme = createTheme({
             },
             styleOverrides:{
                 standardError:{
-                    border:`1px solid ${themePalette.ERROR_MAIN}`,
+                    border:`2px solid ${themePalette.ERROR_MAIN}`,
                     background: themePalette.BG_ERROR_MAIN,
+                },
+                standardSuccess:{
+                    border:`2px solid ${themePalette.SUCCESS_MAIN}`,
+                    background: themePalette.BG_SUCCESS_MAIN,
                 },
             },
         },
