@@ -40,6 +40,28 @@ export const LoginPage: React.FC<{}> = () => {
                 justifyContent="center"
                 sx={{minHeight: "100vh"}}
             >
+                {/* Círculo superior derecho */}
+                <div style={{ 
+                    position: "absolute", 
+                    top: "-350px", 
+                    right: "-350px", 
+                    width: "800px", 
+                    height: "800px", 
+                    borderRadius: "50%", 
+                    backgroundColor: "#fd5f30", 
+                    zIndex: -1 
+                }}></div>
+                {/* Círculo inferior izquierdo */}
+                <div style={{ 
+                    position: "absolute", 
+                    bottom: "-350px", 
+                    left: "-350px", 
+                    width: "800px", 
+                    height: "800px", 
+                    borderRadius: "50%", 
+                    backgroundColor: "#4273f3", 
+                    zIndex: -1 
+                }}></div>
                 <Grid item>
                     <Paper sx={{ 
                         padding: "1.2em", 
@@ -49,29 +71,6 @@ export const LoginPage: React.FC<{}> = () => {
                         boxShadow: '0 5px 80px rgba(0, 0, 0, 0.305)' 
                     }}>
 
-                        {/* Círculo superior derecho */}
-                        <div style={{ 
-                            position: "absolute", 
-                            top: "-700px", 
-                            right: "-970px", 
-                            width: "800px", 
-                            height: "800px", 
-                            borderRadius: "50%", 
-                            backgroundColor: "#fd5f30", 
-                            zIndex: -1 
-                        }}></div>
-                        {/* Círculo inferior izquierdo */}
-                        <div style={{ 
-                            position: "absolute", 
-                            bottom: "-700px", 
-                            left: "-970px", 
-                            width: "800px", 
-                            height: "800px", 
-                            borderRadius: "50%", 
-                            backgroundColor: "#4273f3", 
-                            zIndex: -1 
-                        }}></div>
-                        
                         <Typography variant="h4" sx={{ textAlign: "center" }}>Iniciar Sesión</Typography>
                         <Box component="form" onSubmit={handleSubmit}>
                             <TextField
@@ -80,7 +79,7 @@ export const LoginPage: React.FC<{}> = () => {
                                 type="email"
                                 fullWidth
                                 label="email"
-                                sx={{ mt: 1.5, mb: 1.5, backgroundColor: "rgba(218, 218, 218, 0.5)", "& .MuiInputLabel-root": { color: "#000" } }}
+                                sx={{ mt: 1.5, mb: 1.5}}
                                 onChange={dataLogin}
                             />
                             <TextField
@@ -89,10 +88,10 @@ export const LoginPage: React.FC<{}> = () => {
                                 type="password"
                                 fullWidth
                                 label="password"
-                                sx={{ mt: 1.5, mb: 1.5, backgroundColor: "rgba(218, 218, 218, 0.5)", "& .MuiInputLabel-root": { color: "#000" } }}
+                                sx={{ mt: 1.5, mb: 1.5 }}
                                 onChange={dataLogin}
                             />
-                            <Button fullWidth type="submit" variant="contained" sx={{ mt: 1.5, mb: 3 }}>Iniciar Sesion</Button>
+                            <Button fullWidth type="submit" variant="contained" sx={{ mt: 1.5, mb: 3 }}>Login</Button>
                         </Box>
                     </Paper>
                 </Grid>
