@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Button, Grid, Paper, Box, Typography, TextField } from '@mui/material';
 import { useNotification } from "../../context/notification.context";
 import { LoginValidate } from "../../utils/validateForm";
-
+import { useNavigate } from "react-router-dom";
 
 type LoginType = {
     username: string;
@@ -10,6 +10,7 @@ type LoginType = {
 };
 
 export const LoginPage: React.FC<{}> = () => {
+    const navigate = useNavigate();
     const { getError, getSucces} = useNotification();
     const [loginData, setLoginData]= React.useState<LoginType>({
         username:"",
@@ -71,7 +72,7 @@ export const LoginPage: React.FC<{}> = () => {
                         boxShadow: '0 5px 80px rgba(0, 0, 0, 0.305)' 
                     }}>
 
-                        <Typography variant="h4" sx={{ textAlign: "center" }}>Iniciar Sesión</Typography>
+                        <Typography variant="h4" sx={{ textAlign: "center" }}>¡Welcome!</Typography>
                         <Box component="form" onSubmit={handleSubmit}>
                             <TextField
                                 name="username"
@@ -91,6 +92,7 @@ export const LoginPage: React.FC<{}> = () => {
                                 sx={{ mt: 1.5, mb: 1.5 }}
                                 onChange={dataLogin}
                             />
+                            <Button color="primary" fullWidth variant="text" sx={{ mt: 1, mb: 1, fontSize: "0.8rem", textAlign: "left" }} onClick={()=> navigate("recovery") }>Did you forget your password?</Button>
                             <Button fullWidth type="submit" variant="contained" sx={{ mt: 1.5, mb: 3 }}>Login</Button>
                         </Box>
                     </Paper>
