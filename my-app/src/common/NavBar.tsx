@@ -16,21 +16,13 @@ export const NavBar: React.FC<{}> = () => {
                             alignItems="center"
                             spacing={2} // Espaciado entre los elementos del Grid
                         >
-                            <Grid item container alignItems="center" xs={3}> {/* Ancho del 50% */}
+                            <Grid item container alignItems="center" xs={4}> {/* Ancho del 50% */}
                                 <img src={Logo} alt="Logo de la empresa" style={{ maxWidth: "60px", width: "100%", display: "flex" }} />
                                 <h2 style={{ color: "#000", fontSize: "1.8rem", fontWeight: "400", marginLeft: "10px" }}>
-                                    English<span style={{ fontWeight: "bold" }}>Workshop</span>
+                                    <span style={{fontWeight:"bold"}}>The</span>English<span style={{ fontWeight: "bold" }}>Workshop</span>
                                 </h2>
                             </Grid>
-                            <Grid item container alignItems="center" xs={3.8}> {/* Ancho del 50% */}
-                                {/* Navegador */}
-                                <nav style={{ marginRight: "auto" }}>
-                                    <ul style={{ display: "flex", listStyle: "none", padding: 0, fontFamily: 'Poppins, sans-serif', fontSize: "1rem", fontWeight: "bold", cursor: "pointer" }}>
-                                        <li style={{ marginRight: "20px" }}><a style={{ fontSize: "1rem", color: "#000000", textDecoration: "none", position: "relative" }} href="/">Inicio</a></li>
-                                        <li style={{ marginRight: "20px" }}><a style={{ fontSize: "1rem", color: "#000000", textDecoration: "none", position: "relative" }} href="/">Servicios</a></li>
-                                        <li><a style={{ fontSize: "1rem", color: "#000000", textDecoration: "none", position: "relative" }} href="/">Ayuda</a></li>
-                                    </ul>
-                                </nav>
+                            <Grid item container alignItems="center" xs={3}> {/* Ancho del 50% */}
                                 <Stack direction="row" spacing={2}>
                                     <Button variant="contained" onClick={() => navigate("login")}>Login</Button>
                                     <Button variant="outlined" style={{color:'#000000', borderRadius:"0.7rem"}} onClick={() => navigate("register")}>Sing Up</Button>
