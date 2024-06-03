@@ -15,7 +15,6 @@ export const NavBar: React.FC<{}> = () => {
                             justifyContent="space-between"
                             alignItems="center"
                             spacing={2} // Espaciado entre los elementos del Grid
-                            sx={{ flexGrow: 1 }} // Ocupar todo el espacio disponible hacia los laterales
                         >
                             <Grid item container alignItems="center" xs={3}> {/* Ancho del 50% */}
                                 <img src={Logo} alt="Logo de la empresa" style={{ maxWidth: "60px", width: "100%", display: "flex" }} />
@@ -34,7 +33,7 @@ export const NavBar: React.FC<{}> = () => {
                                 </nav>
                                 <Stack direction="row" spacing={2}>
                                     <Button variant="contained" onClick={() => navigate("login")}>Login</Button>
-                                    <Button variant="outlined">Sing in</Button>
+                                    <Button variant="outlined" style={{color:'#000000', borderRadius:"0.7rem"}} onClick={() => navigate("register")}>Sing Up</Button>
                                 </Stack>
                             </Grid>
                         </Grid>
