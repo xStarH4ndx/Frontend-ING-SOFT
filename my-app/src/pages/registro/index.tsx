@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Button, Grid, Paper, Box, Typography, TextField } from '@mui/material';
 import { useMutation } from '@apollo/client';
-import { CREATE_USUARIO } from '.../graphql/mutation'; // Import the mutation
+import { CREAR_USUARIO } from '../../graphql/mutation'
 
 type RegisterType = {
   username: string;
@@ -24,7 +24,7 @@ export const RegisterPage: React.FC<{}> = () => {
     confirmPassword: "",
   });
 
-  const [createUsuario, { loading, error }] = useMutation(CREATE_USUARIO);
+  const [createUsuario, { loading, error }] = useMutation(CREAR_USUARIO);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
