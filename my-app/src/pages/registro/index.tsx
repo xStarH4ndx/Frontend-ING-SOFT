@@ -1,41 +1,64 @@
 import React, { useState } from "react";
 import { Container, Button, Grid, Paper, Box, Typography, TextField } from '@mui/material';
+import { useMutation } from '@apollo/client';
+import { CREATE_USUARIO } from '.../graphql/mutation'; // Import the mutation
 
 type RegisterType = {
-    username: string;
-    lastname: string;
-    rut: string;
-    profesion: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
+  username: string;
+  lastname: string;
+  rut: string;
+  profesion: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 };
 
 export const RegisterPage: React.FC<{}> = () => {
-    const [registerData, setRegisterData] = useState<RegisterType>({
-        username: "",
-        lastname: "",
-        rut: "",
-        profesion: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-    });
+  const [registerData, setRegisterData] = useState<RegisterType>({
+    username: "",
+    lastname: "",
+    rut: "",
+    profesion: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setRegisterData({ ...registerData, [name]: value });
-    };
+  const [createUsuario, { loading, error }] = useMutation(CREATE_USUARIO);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (registerData.password !== registerData.confirmPassword) {
-            alert("Las contraseñas no coinciden");
-            return;
-        }
-        console.log(registerData);
-        //ACÁ SE MANDAN LOS DATOS AL SERVER
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setRegisterData({ ...registerData, [name]: value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (registerData.password !== registerData.confirmPassword) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+
+    try {
+      const response = await createUsuario({
+        variables: {
+          createUsuarioInput: {
+            username: registerData.username,
+            lastname: registerData.lastname,
+            rut: registerData.rut,
+            profesion: registerData.profesion,
+            correo: registerData.email, // Use 'correo' for consistency with schema
+            password: registerData.password,
+          },
+        },
+      });
+
+      console.log('Usuario creado:', response.data.crearUsuario);
+      // Handle successful creation (e.g., redirect to login page)
+    } catch (err) {
+      console.error('Error creando usuario:', err);
+      // Handle errors (e.g., display error message to user)
+    }
+  };
 
     return (
         <Container maxWidth="sm">
