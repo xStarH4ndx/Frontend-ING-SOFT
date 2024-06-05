@@ -28,3 +28,9 @@ export const UPDATE_USUARIO = gql`
     }
   }
 `;
+
+export const LOGIN_MUTATION = gql`
+mutation Login($correo: String!, $password: String!) {
+  login(correo: $correo, password: $password)
+}
+`;
