@@ -2,12 +2,9 @@ import React from "react";
 import { AppBar, Box, Button, Container, Grid, Stack, Toolbar } from "@mui/material";
 import Logo from '../assets/images/logo-empresa.png';
 import { useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 
 export const NavBar: React.FC<{}> = () => {
     const navigate = useNavigate();
-    const { isAuthenticated, logout } = useAuth();
-
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="sticky" sx={{ boxShadow: "none", bgcolor: "transparent", width: "100%", left: 0 }}>
@@ -27,14 +24,8 @@ export const NavBar: React.FC<{}> = () => {
                             </Grid>
                             <Grid item container alignItems="center" xs={3}> {/* Ancho del 50% */}
                                 <Stack direction="row" spacing={2}>
-                                    {isAuthenticated ? (
-                                        <Button variant="contained" onClick={logout}>Logout</Button>
-                                    ) : (
-                                        <>
-                                            <Button variant="contained" onClick={() => navigate("login")}>Login</Button>
-                                            <Button variant="outlined" style={{ color: '#000000', borderRadius: "0.7rem" }} onClick={() => navigate("register")}>Sign Up</Button>
-                                        </>
-                                    )}
+                                    <Button variant="contained" onClick={() => navigate("login")}>Login</Button>
+                                    <Button variant="outlined" style={{color:'#000000', borderRadius:"0.7rem"}} onClick={() => navigate("register")}>Sing Up</Button>
                                 </Stack>
                             </Grid>
                         </Grid>

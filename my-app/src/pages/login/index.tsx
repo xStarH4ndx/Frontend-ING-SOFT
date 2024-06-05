@@ -6,6 +6,7 @@ import { LOGIN_MUTATION } from "../../graphql/mutation";
 import { useMutation } from '@apollo/client';
 import { LoginValidate } from "../../utils/validationForm";
 
+
 type LoginType = {
   correo: string;
   password: string;
@@ -22,10 +23,8 @@ export const LoginPage: React.FC<{}> = () => {
   const [login, { loading, error, data }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
       if (data.login) {
-        const token = data.login.token; // Asegúrate de que esta línea coincida con la estructura de tu respuesta de GraphQL
-        localStorage.setItem('authToken', token); // Guarda el token en localStorage
-        getSucces("Login successful");
-        navigate('/curso');
+        getSucces("Login successful!");
+        navigate('/dashboard');
       } else {
         getError("Invalid credentials");
       }
@@ -113,20 +112,12 @@ export const LoginPage: React.FC<{}> = () => {
                 color="primary" 
                 fullWidth 
                 variant="outlined" 
-                sx={{ mt: 1, mb: 1.5, fontSize: "0.8rem", textAlign: "left"}} 
+                sx={{ mt: 1, mb: 1, fontSize: "0.8rem", textAlign: "left"}} 
                 onClick={() => navigate("recovery")}
               >
                 Did you forget your password?
               </Button>
-              <Button fullWidth type="submit" variant="contained" sx={{ mb: 1 }}>Login</Button>
-              <Button 
-                fullWidth 
-                variant="text" 
-                sx={{ fontSize: "0.8rem", textAlign: "center", color: "#4273f3"}} 
-                onClick={() => navigate("register")}
-              >
-                Create a new Account
-              </Button>
+              <Button fullWidth type="submit" variant="contained" sx={{ mt: 1.5, mb: 3 }}>Login</Button>
             </Box>
           </Paper>
         </Grid>
