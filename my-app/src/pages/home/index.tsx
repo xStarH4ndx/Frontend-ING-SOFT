@@ -1,14 +1,17 @@
 import React from "react";
 import { Button, Container, Grid, Paper, Avatar, Typography, Box, Divider } from '@mui/material';
 import { HeaderComponent } from "../../components";
+import { useNavigate } from "react-router-dom";
 
 export const HomePage: React.FC<{}> = () => {
+    const navigate = useNavigate();
+
     return (
         <Container maxWidth="xl">
             <HeaderComponent 
                 title="Welcome!" 
                 description="Connect Through Language"
-                element={<Button fullWidth variant="contained">View More</Button>}
+                element={<Button fullWidth variant="contained" onClick={() => navigate("curso")}>View More</Button>}
             />
             <Grid container spacing={2}>
                 <Grid item xs={12}>
