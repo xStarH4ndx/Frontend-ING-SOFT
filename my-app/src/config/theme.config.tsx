@@ -36,15 +36,25 @@ const theme = createTheme({
     },
     components:{
         MuiButton:{
+            variants: [{
+                props: {variant: 'outlined', color:'primary'},
+                style:{
+                    color: themePalette.BLACK,
+                    borderColor: themePalette.BLACK,
+                    '&:hover': {
+                        borderColor: themePalette.BLACK,
+                    },
+                }
+            }],
+
             defaultProps:{
                 style:{
                     fontSize: "1rem",
                     textTransform: "none",
                     borderRadius: "9px",
                     transition: "all 0.3s ease",
-                    color: "#ffff",
                     cursor: "pointer",
-                }
+                },
             }
         },
         MuiAlert:{

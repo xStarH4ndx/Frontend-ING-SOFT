@@ -111,8 +111,8 @@ export const LoginPage: React.FC<{}> = () => {
               <Button 
                 color="primary" 
                 fullWidth 
-                variant="text" 
-                sx={{ mt: 1, mb: 1, fontSize: "0.8rem", textAlign: "left" }} 
+                variant="outlined" 
+                sx={{ mt: 1, mb: 1, fontSize: "0.8rem", textAlign: "left"}} 
                 onClick={() => navigate("recovery")}
               >
                 Did you forget your password?

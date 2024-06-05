@@ -19,12 +19,12 @@ export const HomePage: React.FC<{}> = () => {
                             style={{ width: 200, height: 200, marginRight: '30px' }}
                         />
                         <Box>
-                            <Box display="flex" alignItems="center" mb={1}>
+                            <Box display="flex" alignItems="center">
                                 <Typography variant="h6" fontWeight="bold" mr={1}>Name:</Typography>
                                 <Typography variant="h6">Sandra Raggi</Typography>
                             </Box>
                             <Box display="flex" alignItems="center" mb={1}>
-                                <Typography variant="h6" fontWeight="bold" mr={1}>Profesión:</Typography>
+                                <Typography variant="h6" fontWeight="bold" mr={1}>Profession:</Typography>
                                 <Typography variant="h6">English teacher</Typography>
                             </Box>
                             <Divider/>
