@@ -12,22 +12,33 @@ export const HomePage: React.FC<{}> = () => {
             />
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Paper elevation={3} style={{ display: 'flex', padding: '16px', alignItems: 'center' }}>
+                    <Paper elevation={3} style={{ display: 'flex', padding: '16px', alignItems: 'center', borderRadius: 30}}>
                         <Avatar 
-                            alt="Administrator" 
+                            alt="Sandra Raggi" 
                             src="/path-to-profile-pic.jpg" // Reemplaza con la ruta de la foto de perfil
                             style={{ width: 200, height: 200, marginRight: '30px' }}
                         />
                         <Box>
-                            <Typography variant="h5">Name:</Typography>
-                            <Typography variant="h5">Profession:</Typography>
-                            <Typography variant="h5">Description:</Typography>
-                            <Typography variant="body1" color="textSecondary">
-                                Esta es una breve descripción personal del administrador. Aquí puedes incluir información relevante sobre su experiencia y habilidades.
-                            </Typography>
+                            <Box display="flex" alignItems="center" mb={1}>
+                                <Typography variant="h6" fontWeight="bold" mr={1}>Name:</Typography>
+                                <Typography variant="h6">Sandra Raggi</Typography>
+                            </Box>
+                            <Box display="flex" alignItems="center" mb={1}>
+                                <Typography variant="h6" fontWeight="bold" mr={1}>Profesión:</Typography>
+                                <Typography variant="h6">English teacher</Typography>
+                            </Box>
+                            <Divider/>
+                            <Box>
+                                <Typography variant="body1" color="textSecondary" style={{ textAlign: 'justify' }}>
+                                    Professor of English with 40 years of experience. Master in University Pedagogy. Mainly dedicated to helping people who need to 
+                                    improve their oral communication. The courses I teach are personalized. The thematic contents are selected 
+                                    according to the students' interests and each of the courses contains concepts, teaching methods and pedagogical 
+                                    techniques that allow students to achieve effective communication in English.
+                                </Typography>
+                            </Box>
                         </Box>
                     </Paper>
-                    <Divider sx={{mt:2}}/>
+                    <Divider sx={{ mt: 2 }} />
                 </Grid>
                 <Grid>
 
