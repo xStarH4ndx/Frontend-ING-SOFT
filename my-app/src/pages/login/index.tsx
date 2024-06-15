@@ -54,7 +54,7 @@ export const LoginPage: React.FC<{}> = () => {
       .catch((error) => {
         getError(error.message);
       });
-
+      
     try {
       await login({
         variables:{
