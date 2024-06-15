@@ -37,8 +37,7 @@ export const HeaderComponent: React.FC<HeaderProps> = ({title,description,elemen
                     </Grid>
                 </Grid>
             </Box>
-
-            <Divider/>
+            <Divider sx={{mb:2}}/>
         </div>
             
     );

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Container, Button, Grid, Paper, Box, Typography, TextField } from '@mui/material';
+import { useMutation } from '@apollo/client';
+import { CREAR_USUARIO } from '../../graphql/mutation'
 
 type RegisterType = {
     username: string;
@@ -12,34 +14,52 @@ type RegisterType = {
 };
 
 export const RegisterPage: React.FC<{}> = () => {
-    const [registerData, setRegisterData] = useState<RegisterType>({
-        username: "",
-        lastname: "",
-        rut: "",
-        profesion: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-    });
+const [registerData, setRegisterData] = useState<RegisterType>({
+    username: "",
+    lastname: "",
+    rut: "",
+    profesion: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+});
+
+    const [createUsuario, { loading, error }] = useMutation(CREAR_USUARIO);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setRegisterData({ ...registerData, [name]: value });
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (registerData.password !== registerData.confirmPassword) {
-            alert("Las contraseñas no coinciden");
-            return;
+        alert("Las contraseñas no coinciden");
+        return;
         }
-        console.log(registerData);
-        //ACÁ SE MANDAN LOS DATOS AL SERVER
 
-        
+        try {
+        const response = await createUsuario({
+            variables: {
+            createUsuarioInput: {
+                username: registerData.username,
+                lastname: registerData.lastname,
+                rut: registerData.rut,
+                profesion: registerData.profesion,
+                correo: registerData.email, // Use 'correo' for consistency with schema
+                password: registerData.password,
+            },
+            },
+        });
 
-
+        console.log('Usuario creado:', response.data.crearUsuario);
+        // Handle successful creation (e.g., redirect to login page)
+        } catch (err) {
+        console.error('Error creando usuario:', err);
+        // Handle errors (e.g., display error message to user)
+        }
     };
+
 
     return (
         <Container maxWidth="sm">

@@ -2,4 +2,6 @@ cosas por instalar:
 
 npm install react-router-dom@6
 npm install @mui/material @emotion/react @emotion/styled @mui/icons-material
+npm install @apollo/client graphql
+
 npm install yup
