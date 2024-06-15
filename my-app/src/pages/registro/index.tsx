@@ -35,6 +35,10 @@ export const RegisterPage: React.FC<{}> = () => {
         }
         console.log(registerData);
         //ACÁ SE MANDAN LOS DATOS AL SERVER
+
+        
+
+
     };
 
     return (
