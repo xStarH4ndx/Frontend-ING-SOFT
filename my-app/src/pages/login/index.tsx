@@ -1,10 +1,19 @@
 import React from "react";
 import { Container, Button, Grid, Paper, Box, Typography, TextField } from '@mui/material';
+
+//Notificaciones
 import { useNotification } from "../../context/notification.context";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_MUTATION } from "../../graphql/mutation";
 import { useMutation } from '@apollo/client';
 import { LoginValidate } from "../../utils/validationForm";
+
+
+//GraphQl
+import { LOGIN_MUTATION } from "../../graphql/mutation";
+import { useMutation } from '@apollo/client';
+import { LoginValidate } from "../../utils/validationForm";
+import Loading from "../../components/Loading/Loading";
 
 
 type LoginType = {
@@ -15,6 +24,7 @@ type LoginType = {
 export const LoginPage: React.FC<{}> = () => {
   const navigate = useNavigate();
   const { getError, getSucces } = useNotification();
+
   const [loginData, setLoginData] = React.useState<LoginType>({
     correo: '',
     password: '',
@@ -24,6 +34,7 @@ export const LoginPage: React.FC<{}> = () => {
     onCompleted: (data) => {
       if (data.login) {
         getSucces("Login successful!");
+        localStorage.setItem('authToken', data.token);
         navigate('/dashboard');
       } else {
         getError("Invalid credentials");
@@ -38,7 +49,8 @@ export const LoginPage: React.FC<{}> = () => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Datos de login:', loginData); // Verifica los datos capturados
     LoginValidate.validate(loginData)
@@ -48,7 +60,19 @@ export const LoginPage: React.FC<{}> = () => {
       .catch((error) => {
         getError(error.message);
       });
+      
+    try {
+      await login({
+        variables:{
+          email:loginData.correo,
+          password: loginData.password
+        }
+      });
+    } catch (e) {
+    }
   };
+
+  if (loading) return <Loading/>
 
   return (
     <Container maxWidth="sm">

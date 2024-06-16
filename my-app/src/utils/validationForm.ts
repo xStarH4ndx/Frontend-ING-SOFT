@@ -4,3 +4,8 @@ export const LoginValidate = yup.object().shape({
     correo: yup.string().email("Correo Inválido").required("El correo es requerido"),
     password: yup.string().required("La contraseña es requerida"),
 });
+
+export const ForgotPassValidate = yup.object().shape({
+    correo: yup.string().email("Correo Inválido").required("El correo es requerido"),
+
+});

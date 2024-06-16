@@ -1,7 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useNotification } from "../../context/notification.context";
 import { Container, Button, Grid, Paper, Box, Typography, TextField } from '@mui/material';
 import { useMutation } from '@apollo/client';
-import { CREAR_USUARIO } from '../../graphql/mutation'
+
+//import { CREAR_USUARIO } from '../../graphql/mutation'
+import { REGISTER } from "../../graphql/mutation";
+import Loading from "../../components/Loading/Loading";
+import { validarRUT } from "../../utils/rutValidator";
+
 
 type RegisterType = {
   username: string;
@@ -14,51 +21,69 @@ type RegisterType = {
 };
 
 export const RegisterPage: React.FC<{}> = () => {
-  const [registerData, setRegisterData] = useState<RegisterType>({
-    username: "",
-    lastname: "",
-    rut: "",
-    profesion: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
 
-  const [createUsuario, { loading, error }] = useMutation(CREAR_USUARIO);
+    const navigate = useNavigate();
+    const { getError, getSucces } = useNotification();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setRegisterData({ ...registerData, [name]: value });
-  };
+    const [registerData, setRegisterData] = useState<RegisterType>({
+        username: "",
+        lastname: "",
+        rut: "",
+        profesion: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (registerData.password !== registerData.confirmPassword) {
-      alert("Las contraseñas no coinciden");
-      return;
-    }
-
-    try {
-      const response = await createUsuario({
-        variables: {
-          createUsuarioInput: {
-            username: registerData.username,
-            lastname: registerData.lastname,
-            rut: registerData.rut,
-            profesion: registerData.profesion,
-            correo: registerData.email, // Use 'correo' for consistency with schema
-            password: registerData.password,
-          },
+    const [register, { loading, error }] = useMutation(REGISTER, {
+        onCompleted: () => {
+            getSucces('Registration successful!');
+            navigate('/login', { replace: true });
         },
-      });
+        onError: (error) => {
+            // Handle specific errors regarding the registration
+            if (error.message.includes('RUT already registered')) {
+                getError('RUT already registered.');
+            } else if (error.message.includes('Email already registered')) {
+                getError('Email already registered.');
+            } else {
+                getError('An unexpected error occurred.');
+            }
+        }
+    });
 
-      console.log('Usuario creado:', response.data.crearUsuario);
-      // Handle successful creation (e.g., redirect to login page)
-    } catch (err) {
-      console.error('Error creando usuario:', err);
-      // Handle errors (e.g., display error message to user)
-    }
-  };
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setRegisterData({ ...registerData, [name]: value });
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (registerData.password !== registerData.confirmPassword) {
+            getError("Passwords do not match");
+            return;
+        }
+
+        if(!validarRUT(registerData.rut)){
+            getError("Invalid RUT!");
+            return;
+        }
+
+        await register({
+            variables:{
+                username:registerData.username,
+                lastname:registerData.lastname,
+                rut:registerData.rut,
+                profesion:registerData.profesion,
+                email: registerData.email,
+                password:registerData.password
+            }
+        });
+    };
+
+
+    if (loading) return <Loading/>;
 
     return (
         <Container maxWidth="sm">
