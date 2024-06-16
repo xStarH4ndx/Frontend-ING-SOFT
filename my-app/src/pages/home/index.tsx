@@ -15,7 +15,9 @@ export const HomePage: React.FC<{}> = () => {
                     <Paper elevation={3} style={{ display: 'flex', padding: '16px', alignItems: 'center', borderRadius: 30}}>
                         <Avatar 
                             alt="Sandra Raggi" 
+
                             src="/teacher.jpg" // Reemplaza con la ruta de la foto de perfil
+
                             style={{ width: 200, height: 200, marginRight: '30px' }}
                         />
                         <Box>

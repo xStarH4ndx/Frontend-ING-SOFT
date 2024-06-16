@@ -7,4 +7,5 @@ export const LoginValidate = yup.object().shape({
 
 export const ForgotPassValidate = yup.object().shape({
     correo: yup.string().email("Correo Inválido").required("El correo es requerido"),
+
 });

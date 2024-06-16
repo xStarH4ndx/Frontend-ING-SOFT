@@ -3,19 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { useNotification } from "../../context/notification.context";
 import { Container, Button, Grid, Paper, Box, Typography, TextField } from '@mui/material';
 import { useMutation } from '@apollo/client';
+
 //import { CREAR_USUARIO } from '../../graphql/mutation'
 import { REGISTER } from "../../graphql/mutation";
 import Loading from "../../components/Loading/Loading";
 import { validarRUT } from "../../utils/rutValidator";
 
+
 type RegisterType = {
-    username: string;
-    lastname: string;
-    rut: string;
-    profesion: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
+  username: string;
+  lastname: string;
+  rut: string;
+  profesion: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 };
 
 export const RegisterPage: React.FC<{}> = () => {
@@ -79,6 +81,7 @@ export const RegisterPage: React.FC<{}> = () => {
             }
         });
     };
+
 
     if (loading) return <Loading/>;
 

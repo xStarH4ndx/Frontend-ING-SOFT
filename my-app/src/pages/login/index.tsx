@@ -4,6 +4,10 @@ import { Container, Button, Grid, Paper, Box, Typography, TextField } from '@mui
 //Notificaciones
 import { useNotification } from "../../context/notification.context";
 import { useNavigate } from "react-router-dom";
+import { LOGIN_MUTATION } from "../../graphql/mutation";
+import { useMutation } from '@apollo/client';
+import { LoginValidate } from "../../utils/validationForm";
+
 
 //GraphQl
 import { LOGIN_MUTATION } from "../../graphql/mutation";
@@ -20,7 +24,7 @@ type LoginType = {
 export const LoginPage: React.FC<{}> = () => {
   const navigate = useNavigate();
   const { getError, getSucces } = useNotification();
-  
+
   const [loginData, setLoginData] = React.useState<LoginType>({
     correo: '',
     password: '',
@@ -44,6 +48,7 @@ export const LoginPage: React.FC<{}> = () => {
   const dataLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
