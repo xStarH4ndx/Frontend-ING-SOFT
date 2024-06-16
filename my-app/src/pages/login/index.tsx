@@ -30,6 +30,7 @@ export const LoginPage: React.FC<{}> = () => {
     onCompleted: (data) => {
       if (data.login) {
         getSucces("Login successful!");
+        localStorage.setItem('authToken', data.token);
         navigate('/dashboard');
       } else {
         getError("Invalid credentials");
