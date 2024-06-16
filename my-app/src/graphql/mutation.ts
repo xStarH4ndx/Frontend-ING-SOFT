@@ -15,6 +15,14 @@ export const CREAR_USUARIO = gql`
   }
 `;
 
+export const REGISTER = gql`
+  mutation register($username: String!, $lastname: String!, $rut: String!, $profesion: String!, $email: String!,$password: String!){
+    register(username: $username, lastname: $lastname, rut: $rut, profesion: $profesion, email: $email, password: $password){
+      message
+    }
+  }
+`
+
 export const UPDATE_USUARIO = gql`
   mutation updateUsuario($updateUsuarioInput: UpdateUsuarioInput!) {
     updateUsuario(updateUsuarioInput: $updateUsuarioInput) {
