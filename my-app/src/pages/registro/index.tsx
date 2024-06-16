@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client';
 //import { CREAR_USUARIO } from '../../graphql/mutation'
 import { REGISTER } from "../../graphql/mutation";
 import Loading from "../../components/Loading/Loading";
+import { validarRUT } from "../../utils/rutValidator";
 
 type RegisterType = {
     username: string;
@@ -62,7 +63,11 @@ export const RegisterPage: React.FC<{}> = () => {
             return;
         }
 
-        
+        if(!validarRUT(registerData.rut)){
+            getError("Invalid RUT!");
+            return;
+        }
+
         await register({
             variables:{
                 username:registerData.username,
@@ -73,9 +78,7 @@ export const RegisterPage: React.FC<{}> = () => {
                 password:registerData.password
             }
         });
-
     };
-
 
     if (loading) return <Loading/>;
 
