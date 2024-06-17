@@ -22,8 +22,8 @@
   },
   "include": [
     "src",
-    "src/Apollo/client",
-    "src/graphql/mutation",
-    "src/graphql/query"
+    "src/api/Apollo/client",
+    "src/api/graphql/mutation",
+    "src/api/graphql/query"
   ]
 }
