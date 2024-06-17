@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom"
 import { HomePage } from "./pages/home";
-import { LoginPage } from "./pages/login";
-import { RegisterPage } from "./pages/registro";
+import { LoginPage } from "./pages/sesion/login";
+import { RegisterPage } from "./pages/sesion/registro";
 import { RouterLayout } from "./common/RouterLayout";
-import { RecoveryPage } from "./pages/recuperacion";
+import { RecoveryPage } from "./pages/sesion/recuperacion";
 
 export const AppRouter: React.FC<{}> = () =>{
     return (

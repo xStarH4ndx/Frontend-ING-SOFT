@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useNotification } from "../../context/notification.context";
+import { useNotification } from "../../../tools/context/notification.context";
 import { Container, Button, Grid, Paper, Box, Typography, TextField } from '@mui/material';
 
 //GraqhQl
-import { FORGOT_PASS } from "../../graphql/mutation";
+import { FORGOT_PASS } from "../../../api/graphql/mutation";
 import { useMutation } from "@apollo/client";
-import Loading from "../../components/Loading/Loading";
+import Loading from "../../../components/Loading/Loading";
 //import { Email } from "@mui/icons-material";
 
 //Control de errores

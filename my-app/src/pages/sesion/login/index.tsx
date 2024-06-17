@@ -2,18 +2,14 @@ import React from "react";
 import { Container, Button, Grid, Paper, Box, Typography, TextField } from '@mui/material';
 
 //Notificaciones
-import { useNotification } from "../../context/notification.context";
+import { useNotification } from "../../../tools/context/notification.context";
 import { useNavigate } from "react-router-dom";
-import { LOGIN_MUTATION } from "../../graphql/mutation";
-import { useMutation } from '@apollo/client';
-import { LoginValidate } from "../../utils/validationForm";
-
 
 //GraphQl
-import { LOGIN_MUTATION } from "../../graphql/mutation";
+import { LOGIN_MUTATION } from "../../../api/graphql/mutation";
 import { useMutation } from '@apollo/client';
-import { LoginValidate } from "../../utils/validationForm";
-import Loading from "../../components/Loading/Loading";
+import { LoginValidate } from "../../../tools/utils/validationForm";
+import Loading from "../../../components/Loading/Loading";
 
 
 type LoginType = {

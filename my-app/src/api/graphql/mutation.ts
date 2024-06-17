@@ -22,7 +22,7 @@ export const REGISTER = gql`
       message
     }
   }
-`
+`;
 
 export const UPDATE_USUARIO = gql`
   mutation updateUsuario($updateUsuarioInput: UpdateUsuarioInput!) {
@@ -52,3 +52,4 @@ mutation login($email: String!, $password: String!) {
   login(email: $email, password: $password){
     token
   }
+}`;

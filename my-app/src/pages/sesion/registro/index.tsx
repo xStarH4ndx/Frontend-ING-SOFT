@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useNotification } from "../../context/notification.context";
+import { useNotification } from "../../../tools/context/notification.context";
 import { Container, Button, Grid, Paper, Box, Typography, TextField } from '@mui/material';
 import { useMutation } from '@apollo/client';
 
 //import { CREAR_USUARIO } from '../../graphql/mutation'
-import { REGISTER } from "../../graphql/mutation";
-import Loading from "../../components/Loading/Loading";
-import { validarRUT } from "../../utils/rutValidator";
+import { REGISTER } from "../../../api/graphql/mutation";
+import Loading from "../../../components/Loading/Loading";
+import { validarRUT } from "../../../tools/utils/rutValidator";
 
 
 type RegisterType = {
