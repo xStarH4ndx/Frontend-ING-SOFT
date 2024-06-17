@@ -9,7 +9,7 @@ export const NavBar: React.FC<{}> = () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="sticky" sx={{ boxShadow: "none", bgcolor: "transparent", width: "100%", left: 0 }}>
                 <Toolbar>
-                    <Container maxWidth="xl" sx={{ backgroundColor: '#fff', boxShadow: '0 5px 80px rgba(0, 0, 0, 0.205)', justifyContent: "space-between", height: "90px", alignItems: "center", display: "flex", top: "0" }}>
+                    <Container maxWidth="xl" sx={{ backgroundColor: '#fff', boxShadow: '0 5px 8px rgba(0, 0, 0, 0.205)', justifyContent: "space-between", height: "90px", alignItems: "center", display: "flex", top: "0" }}>
                         <Grid container
                             direction="row"
                             justifyContent="space-between"
