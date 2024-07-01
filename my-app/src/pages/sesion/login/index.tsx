@@ -6,16 +6,18 @@ import { useNotification } from "../../../tools/context/notification.context";
 import { useNavigate } from "react-router-dom";
 
 //GraphQl
-import { LOGIN_MUTATION } from "../../../api/graphql/mutation";
-import { useMutation } from '@apollo/client';
+import { IS_ADMIN_QUERY, LOGIN_MUTATION } from "../../../api/graphql/mutation";
+import { useLazyQuery, useMutation } from '@apollo/client';
 import { LoginValidate } from "../../../tools/utils/validationForm";
 import Loading from "../../../components/Loading/Loading";
+
 
 
 type LoginType = {
   correo: string;
   password: string;
 };
+
 
 export const LoginPage: React.FC<{}> = () => {
   const navigate = useNavigate();
@@ -27,11 +29,27 @@ export const LoginPage: React.FC<{}> = () => {
   });
 
   const [login, { loading, error, data }] = useMutation(LOGIN_MUTATION, {
-    onCompleted: (data) => {
+    onCompleted: async (data) => {
       if (data.login) {
         getSucces("Login successful!");
-        localStorage.setItem('authToken', data.token);
-        navigate('/dashboard');
+        const token = data.login.token;
+        localStorage.setItem('authToken', token);
+
+        // Hacer la consulta `isAdmin`
+        const { data: isAdminData } = await isAdminQuery({
+          context: {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        });
+
+        // Redirigir según el resultado
+        if (isAdminData?.isAdmin) {
+          navigate('/AdminDashboard');
+        } else {
+          navigate('/dashboard');
+        }
       } else {
         getError("Invalid credentials");
       }
@@ -39,6 +57,10 @@ export const LoginPage: React.FC<{}> = () => {
     onError: (error) => {
       getError(error.message);
     },
+  });
+
+  const [isAdminQuery, { loading: adminLoading }] = useLazyQuery(IS_ADMIN_QUERY, {
+    fetchPolicy: "network-only"
   });
 
   const dataLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,3 +167,5 @@ export const LoginPage: React.FC<{}> = () => {
     </Container>
   );
 };
+
+
