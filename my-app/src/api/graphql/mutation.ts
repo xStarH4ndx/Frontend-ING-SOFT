@@ -53,3 +53,17 @@ mutation login($email: String!, $password: String!) {
     token
   }
 }`;
+
+export const IS_ADMIN_QUERY = gql`
+  query {
+    isAdmin
+  }
+`;
+
+export const PAGADO = gql`
+  mutation Pagado($rut: String!, $estado: String!) {
+    pagado(rut: $rut, estado: $estado) {
+      message
+    }
+  }
+`;

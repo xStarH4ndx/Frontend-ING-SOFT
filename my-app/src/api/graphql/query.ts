@@ -3,13 +3,12 @@ import { gql } from '@apollo/client';
 // Definición de queries
 export const LISTAR_USUARIOS = gql`
   query {
-    listarUsuarios {
+    listarTodosLosUsuarios {
       id
       username
       lastname
       rut
       profesion
-      correo
       estado
     }
   }
@@ -27,6 +26,8 @@ export const BUSCAR_USUARIO_POR_ID = gql`
       estado
     }
   }
-`;
+`
+
+;
 
 // ... (Definir las demás queries y mutations que necesites)

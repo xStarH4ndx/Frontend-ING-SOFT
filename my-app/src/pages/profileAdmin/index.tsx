@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import { Container, Paper, Box, Typography, Button, TextField, Checkbox, FormControlLabel } from '@mui/material';
+import { useMutation, useQuery } from '@apollo/client';
+import { LISTAR_USUARIOS } from '../../api/graphql/query';
+import { PAGADO } from '../../api/graphql/mutation';
 
 interface Usuario {
-  nombre: string;
-  apellido: string;
+  id: number;
+  username: string;
+  lastname: string;
   rut: string;
-  edad: number;
+  profesion: string;
+  estado: string;
 }
 
-export const ProfileAdmin: React.FC<{}> = () => {
-  const listaUsuarios: Usuario[] = [
-    { nombre: 'Juan', apellido: 'Perez', rut: '12345678-9', edad: 30 },
-    { nombre: 'Ana', apellido: 'Gomez', rut: '98765432-1', edad: 25 },
-    { nombre: 'Luis', apellido: 'Martinez', rut: '11223344-5', edad: 35 }
-  ];
+interface ListaUsuariosData {
+  listarTodosLosUsuarios: Usuario[];
+}
+
+const ProfileAdmin: React.FC = () => {
+  const { loading, error, data } = useQuery<ListaUsuariosData>(LISTAR_USUARIOS);
+  const [updatePago] = useMutation(PAGADO);
 
   const [selectedUsuarios, setSelectedUsuarios] = useState<{ [rut: string]: boolean }>({});
   const [listaClientes, setListaClientes] = useState<Usuario[]>([]);
@@ -23,31 +29,47 @@ export const ProfileAdmin: React.FC<{}> = () => {
   const [searchTermClientes, setSearchTermClientes] = useState<string>('');
   const [searchRutClientes, setSearchRutClientes] = useState<string>('');
 
-  const handleInscribir = () => {
+  if (loading) return <p>Cargando...</p>;
+  if (error) {
+    console.error(error); // Añade esto para imprimir el error en la consola
+    return <p>Error al cargar los usuarios: {error.message}</p>;
+  }
+
+  const listaUsuarios: Usuario[] = data?.listarTodosLosUsuarios || [];
+
+  const handleInscribir = async () => {
     const usuariosAInscribir = Object.keys(selectedUsuarios)
       .filter((key) => selectedUsuarios[key])
       .map((key) => listaUsuarios.find((usuario) => usuario.rut === key))
       .filter((usuario): usuario is Usuario => !!usuario);
-
+  
     const usuariosYaInscritos = usuariosAInscribir.filter((usuario) =>
       listaClientes.some((cliente) => cliente.rut === usuario.rut)
     );
-
+  
     if (usuariosYaInscritos.length > 0) {
       const nombresUsuariosYaInscritos = usuariosYaInscritos.map(
-        (usuario) => `${usuario.nombre} ${usuario.apellido}`
+        (usuario) => `${usuario.username} ${usuario.lastname}`
       ).join(', ');
       alert(`Usuario(s) ${nombresUsuariosYaInscritos} ya registrado(s), por favor, quite la selección.`);
       return;
     }
-
+  
     const newClientes = usuariosAInscribir.filter(
       (usuario) => !listaClientes.some((cliente) => cliente.rut === usuario.rut)
     );
-
-    setListaClientes((prevClientes) => [...prevClientes, ...newClientes]);
-    setSelectedUsuarios({});
+  
+    try {
+      await Promise.all(newClientes.map(usuario => 
+        updatePago({ variables: { rut: usuario.rut, estado: 'pagado' } })
+      ));
+      setListaClientes((prevClientes) => [...prevClientes, ...newClientes]);
+      setSelectedUsuarios({});
+    } catch (error) {
+      console.error("Error updating payment status: ", error);
+    }
   };
+  
 
   const handleEliminar = () => {
     if (selectedCliente) {
@@ -79,18 +101,21 @@ export const ProfileAdmin: React.FC<{}> = () => {
     return listaUsuarios.filter((usuario) => !listaClientes.some((cliente) => cliente.rut === usuario.rut));
   };
   
+  // Filtrar usuarios no inscritos con estado noPagado
   const filteredUsuarios = getNonInscritos().filter(
     (usuario) =>
-      (usuario.nombre.toLowerCase().includes(searchTermUsuarios.toLowerCase()) ||
-        usuario.apellido.toLowerCase().includes(searchTermUsuarios.toLowerCase())) &&
+      usuario.estado === 'noPagado' &&
+      (usuario.username.toLowerCase().includes(searchTermUsuarios.toLowerCase()) ||
+        usuario.lastname.toLowerCase().includes(searchTermUsuarios.toLowerCase())) &&
       usuario.rut.includes(searchRutUsuarios)
   );
-  
 
+  // Filtrar clientes inscritos con estado pagado
   const filteredClientes = listaClientes.filter(
     (cliente) =>
-      (cliente.nombre.toLowerCase().includes(searchTermClientes.toLowerCase()) ||
-        cliente.apellido.toLowerCase().includes(searchTermClientes.toLowerCase())) &&
+      cliente.estado === 'pagado' &&
+      (cliente.username.toLowerCase().includes(searchTermClientes.toLowerCase()) ||
+        cliente.lastname.toLowerCase().includes(searchTermClientes.toLowerCase())) &&
       cliente.rut.includes(searchRutClientes)
   );
 
@@ -101,7 +126,6 @@ export const ProfileAdmin: React.FC<{}> = () => {
     });
     setSelectedUsuarios(newSelectedUsuarios);
   };
-  
 
   // Actualizar disponibilidad del botón "Inscribir" en tiempo real
   const canInscribir = Object.values(selectedUsuarios).some((value) => value);
@@ -148,10 +172,11 @@ export const ProfileAdmin: React.FC<{}> = () => {
                 }}
               >
                 <Typography variant="h6">
-                  {usuario.nombre} {usuario.apellido}
+                  {usuario.username} {usuario.lastname}
                 </Typography>
                 <Typography variant="body2">RUT: {usuario.rut}</Typography>
-                <Typography variant="body2">Edad: {usuario.edad}</Typography>
+                <Typography variant="body2">Profesión: {usuario.profesion}</Typography>
+                <Typography variant="body2">Estado: {usuario.estado}</Typography>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -207,10 +232,11 @@ export const ProfileAdmin: React.FC<{}> = () => {
                 onClick={() => handleClienteSelection(cliente)}
               >
                 <Typography variant="h6">
-                  {cliente.nombre} {cliente.apellido}
+                  {cliente.username} {cliente.lastname}
                 </Typography>
                 <Typography variant="body2">RUT: {cliente.rut}</Typography>
-                <Typography variant="body2">Edad: {cliente.edad}</Typography>
+                <Typography variant="body2">Profesión: {cliente.profesion}</Typography>
+                <Typography variant="body2">Estado: {cliente.estado}</Typography>
                 <FormControlLabel
                   control={
                     <Checkbox
