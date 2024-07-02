@@ -3,7 +3,6 @@ import { Container, Paper, Box, Avatar, Typography, Grid } from '@mui/material';
 import GoogleCalendarButton from './agendar';
 
 export const Profile: React.FC<{}> = () => {
-  // Simular datos de usuario
   const user = {
     name: "Bruno",
     lastname: "Toro",

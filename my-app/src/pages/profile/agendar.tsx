@@ -24,6 +24,19 @@ const GoogleCalendarButton: React.FC = () => {
       document.head.appendChild(link);
     }
 
+    // Function to load the calendar button
+    const loadCalendarButton = () => {
+      const target = document.getElementById('calendar-button');
+      if (window.calendar && window.calendar.schedulingButton && target) {
+        window.calendar.schedulingButton.load({
+          url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3FJ0hRmUzpEOUYCjrsPFD86GafYbry4FaBz1_QgAOreFQwwWITaxgqB8gRIGt0Pf18BtW9j3qR?gv=true',
+          color: '#039BE5',
+          label: 'Programar una cita',
+          target,
+        });
+      }
+    };
+
     // Add the calendar button script only once
     if (!document.getElementById(buttonScriptId)) {
       const calendarButtonScript = document.createElement("script");
@@ -44,8 +57,15 @@ const GoogleCalendarButton: React.FC = () => {
       document.body.appendChild(calendarButtonScript);
     }
 
+    // Attempt to load the calendar button after the script is added
+    if (window.calendar && window.calendar.schedulingButton) {
+      loadCalendarButton();
+    } else {
+      window.addEventListener('load', loadCalendarButton);
+    }
+
     return () => {
-      // Optional: cleanup if necessary
+      window.removeEventListener('load', loadCalendarButton);
     };
   }, []);
 
