@@ -21,7 +21,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src",
+    "src/",
     "src/api/Apollo/client",
     "src/api/graphql/mutation",
     "src/api/graphql/query"

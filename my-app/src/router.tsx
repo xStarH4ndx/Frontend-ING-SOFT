@@ -8,6 +8,8 @@ import ProfileAdmin from "./pages/profileAdmin";
 import { RouterLayout } from "./common/RouterLayout";
 import AdminDashboard from "./pages/AdminDashboard";
 import { Profile } from "./pages/profile"
+import AsistenciaPage from "./pages/profileAdmin/asistencia/asistencia"
+
 
 export const AppRouter: React.FC<{}> = () =>{
     return (
@@ -17,6 +19,7 @@ export const AppRouter: React.FC<{}> = () =>{
                 <Route path="/profileAdmin" element={<ProfileAdmin/>} />
                 <Route path="/adminDashboard" element={<AdminDashboard />} />
                 <Route path="/dashboard" element={<Profile />} />
+                <Route path="/asistencia" element={<AsistenciaPage />} />
             </Route>
             <Route path="/login" element={<LoginPage/>} />
             <Route path="/login/recovery" element={<RecoveryPage/>} />
