@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Paper, Box, Typography, Button, TextField, Checkbox, FormControlLabel } from '@mui/material';
 import { useMutation, useQuery } from '@apollo/client';
 import { LISTAR_USUARIOS } from '../../api/graphql/query';
@@ -18,7 +18,7 @@ interface ListaUsuariosData {
 }
 
 const ProfileAdmin: React.FC = () => {
-  const { loading, error, data } = useQuery<ListaUsuariosData>(LISTAR_USUARIOS);
+  const { loading, error, data, refetch } = useQuery<ListaUsuariosData>(LISTAR_USUARIOS);
   const [updatePago] = useMutation(PAGADO);
 
   const [selectedUsuarios, setSelectedUsuarios] = useState<{ [rut: string]: boolean }>({});
@@ -28,6 +28,12 @@ const ProfileAdmin: React.FC = () => {
   const [searchRutUsuarios, setSearchRutUsuarios] = useState<string>('');
   const [searchTermClientes, setSearchTermClientes] = useState<string>('');
   const [searchRutClientes, setSearchRutClientes] = useState<string>('');
+
+  useEffect(() => {
+    if (data) {
+      setListaClientes(data.listarTodosLosUsuarios.filter(usuario => usuario.estado === 'pagado'));
+    }
+  }, [data]);
 
   if (loading) return <p>Cargando...</p>;
   if (error) {
@@ -42,11 +48,11 @@ const ProfileAdmin: React.FC = () => {
       .filter((key) => selectedUsuarios[key])
       .map((key) => listaUsuarios.find((usuario) => usuario.rut === key))
       .filter((usuario): usuario is Usuario => !!usuario);
-  
+
     const usuariosYaInscritos = usuariosAInscribir.filter((usuario) =>
       listaClientes.some((cliente) => cliente.rut === usuario.rut)
     );
-  
+
     if (usuariosYaInscritos.length > 0) {
       const nombresUsuariosYaInscritos = usuariosYaInscritos.map(
         (usuario) => `${usuario.username} ${usuario.lastname}`
@@ -54,27 +60,33 @@ const ProfileAdmin: React.FC = () => {
       alert(`Usuario(s) ${nombresUsuariosYaInscritos} ya registrado(s), por favor, quite la selección.`);
       return;
     }
-  
+
     const newClientes = usuariosAInscribir.filter(
       (usuario) => !listaClientes.some((cliente) => cliente.rut === usuario.rut)
     );
-  
+
     try {
-      await Promise.all(newClientes.map(usuario => 
+      await Promise.all(newClientes.map(usuario =>
         updatePago({ variables: { rut: usuario.rut, estado: 'pagado' } })
       ));
       setListaClientes((prevClientes) => [...prevClientes, ...newClientes]);
       setSelectedUsuarios({});
+      refetch(); // Refetch data after mutation
     } catch (error) {
       console.error("Error updating payment status: ", error);
     }
   };
-  
 
-  const handleEliminar = () => {
+  const handleEliminar = async () => {
     if (selectedCliente) {
-      setListaClientes(listaClientes.filter((cliente) => cliente !== selectedCliente));
-      setSelectedCliente(null);
+      try {
+        await updatePago({ variables: { rut: selectedCliente.rut, estado: 'noPagado' } });
+        setListaClientes(listaClientes.filter((cliente) => cliente !== selectedCliente));
+        setSelectedCliente(null);
+        refetch(); // Refetch data after mutation
+      } catch (error) {
+        console.error("Error updating payment status: ", error);
+      }
     }
   };
 
@@ -100,11 +112,20 @@ const ProfileAdmin: React.FC = () => {
   const getNonInscritos = () => {
     return listaUsuarios.filter((usuario) => !listaClientes.some((cliente) => cliente.rut === usuario.rut));
   };
-  
+
   // Filtrar usuarios no inscritos con estado noPagado
   const filteredUsuarios = getNonInscritos().filter(
     (usuario) =>
       usuario.estado === 'noPagado' &&
+      (usuario.username.toLowerCase().includes(searchTermUsuarios.toLowerCase()) ||
+        usuario.lastname.toLowerCase().includes(searchTermUsuarios.toLowerCase())) &&
+      usuario.rut.includes(searchRutUsuarios)
+  );
+
+  // Filtrar usuarios no inscritos con estado pagado
+  const filteredUsuarios2 = getNonInscritos().filter(
+    (usuario) =>
+      usuario.estado === 'pagado' &&
       (usuario.username.toLowerCase().includes(searchTermUsuarios.toLowerCase()) ||
         usuario.lastname.toLowerCase().includes(searchTermUsuarios.toLowerCase())) &&
       usuario.rut.includes(searchRutUsuarios)
@@ -130,7 +151,6 @@ const ProfileAdmin: React.FC = () => {
   // Actualizar disponibilidad del botón "Inscribir" en tiempo real
   const canInscribir = Object.values(selectedUsuarios).some((value) => value);
 
-  
   return (
     <Container style={{ marginTop: '0px', height: '100vh', overflow: 'auto', position: 'relative' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -227,7 +247,8 @@ const ProfileAdmin: React.FC = () => {
                 style={{
                   margin: '8px 0',
                   padding: '8px',
-                  backgroundColor: '#e0e0e0'
+                  backgroundColor: isClienteSelected(cliente) ? '#cfe8fc' : '#f0f0f0',
+                  cursor: 'pointer'
                 }}
                 onClick={() => handleClienteSelection(cliente)}
               >
@@ -237,15 +258,6 @@ const ProfileAdmin: React.FC = () => {
                 <Typography variant="body2">RUT: {cliente.rut}</Typography>
                 <Typography variant="body2">Profesión: {cliente.profesion}</Typography>
                 <Typography variant="body2">Estado: {cliente.estado}</Typography>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={isClienteSelected(cliente)}
-                      onChange={() => handleClienteSelection(cliente)}
-                    />
-                  }
-                  label="Seleccionar"
-                />
               </Paper>
             ))}
           </Box>
@@ -254,7 +266,7 @@ const ProfileAdmin: React.FC = () => {
             color="secondary"
             onClick={handleEliminar}
             disabled={!selectedCliente}
-            style={{ marginTop: '16px', marginRight: '8px' }}
+            style={{ marginTop: '16px' }}
           >
             Eliminar
           </Button>
