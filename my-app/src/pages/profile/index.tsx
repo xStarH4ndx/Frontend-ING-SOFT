@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Paper, Box, Avatar, Typography, Grid } from '@mui/material';
+import GoogleCalendarButton from './agendar';
 
 export const Profile: React.FC<{}> = () => {
   // Simular datos de usuario
@@ -27,10 +28,12 @@ export const Profile: React.FC<{}> = () => {
               <Typography><strong>RUT:</strong> {user.rut}</Typography>
               <Typography><strong>Profession:</strong> {user.profession}</Typography>
             </Box>
+            <Box sx={{ mt: 2 }}>
+              <GoogleCalendarButton />
+            </Box>
           </Paper>
         </Grid>
       </Grid>
     </Container>
   );
 };
-
