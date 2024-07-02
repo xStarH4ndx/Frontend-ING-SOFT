@@ -7,6 +7,8 @@ import { RegisterPage } from "./pages/sesion/registro";
 import ProfileAdmin from "./pages/profileAdmin";
 import { RouterLayout } from "./common/RouterLayout";
 import AdminDashboard from "./pages/AdminDashboard";
+import { Profile } from "./pages/profile"
+
 export const AppRouter: React.FC<{}> = () =>{
     return (
         <Routes>
@@ -14,6 +16,7 @@ export const AppRouter: React.FC<{}> = () =>{
                 <Route path="/" element={<HomePage/>} />
                 <Route path="/profileAdmin" element={<ProfileAdmin/>} />
                 <Route path="/adminDashboard" element={<AdminDashboard />} />
+                <Route path="/dashboard" element={<Profile />} />
             </Route>
             <Route path="/login" element={<LoginPage/>} />
             <Route path="/login/recovery" element={<RecoveryPage/>} />
