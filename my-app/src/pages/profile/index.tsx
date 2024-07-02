@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Paper, Box, Avatar, Typography, Grid } from '@mui/material';
 import GoogleCalendarButton from './agendar';
+import {EnglishWorkshopInfo} from '../../components/workshop/'; // Importa el nuevo componente
 
 export const Profile: React.FC<{}> = () => {
   const user = {
@@ -8,6 +9,12 @@ export const Profile: React.FC<{}> = () => {
     lastname: "Toro",
     rut: "12345678-9",
     profession: "Student",
+  };
+
+  const [showMessage, setShowMessage] = useState(false);
+
+  const handleInscribeClick = () => {
+    setShowMessage(true);
   };
 
   return (
@@ -33,6 +40,12 @@ export const Profile: React.FC<{}> = () => {
           </Paper>
         </Grid>
       </Grid>
+
+      <Box sx={{ mt: 5 }}>
+        <EnglishWorkshopInfo showMessage={showMessage} setShowMessage={setShowMessage} />
+      </Box>
     </Container>
   );
 };
+
+export default Profile;

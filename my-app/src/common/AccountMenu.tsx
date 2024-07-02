@@ -12,7 +12,7 @@ import Logout from '@mui/icons-material/Logout';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Dashboard from '@mui/icons-material/Dashboard';
 
-export default function AccountMenu() {
+const AccountMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -109,4 +109,6 @@ export default function AccountMenu() {
       </Menu>
     </React.Fragment>
   );
-}
+};
+
+export default AccountMenu;
