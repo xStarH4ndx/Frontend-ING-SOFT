@@ -44,7 +44,6 @@ export const LoginPage: React.FC<{}> = () => {
           }
         });
 
-        
         // Redirigir según el resultado
         if (isAdminData?.isAdmin) {
           navigate('/AdminDashboard');
@@ -168,5 +167,4 @@ export const LoginPage: React.FC<{}> = () => {
     </Container>
   );
 };
-
 

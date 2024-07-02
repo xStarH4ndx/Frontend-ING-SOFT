@@ -155,7 +155,7 @@ const ProfileAdmin: React.FC = () => {
     <Container style={{ marginTop: '0px', height: '100vh', overflow: 'auto', position: 'relative' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         {/* Paper de usuarios registrados */}
-        <Paper style={{ marginTop: '40px', width: '45%', padding: '16px', maxHeight: '80vh', overflow: 'auto', position: 'relative', zIndex: 1 }}>
+        <Paper style={{ marginTop: '40px', width: '45%', padding: '16px', maxHeight: '80vh', overflow: 'auto', position: 'relative', zIndex: 1 }} elevation={3}>
           <h3>Usuarios Registrados</h3>
           <TextField
             label="Buscar por nombre"
@@ -222,7 +222,7 @@ const ProfileAdmin: React.FC = () => {
         </Paper>
 
         {/* Paper de usuarios inscritos */}
-        <Paper style={{ marginTop: '40px', width: '45%', padding: '16px', maxHeight: '80vh', overflow: 'auto', position: 'relative', zIndex: 1 }}>
+        <Paper style={{ marginTop: '40px', width: '45%', padding: '16px', maxHeight: '80vh', overflow: 'auto', position: 'relative', zIndex: 1 }} elevation={3}>
           <h3>Usuarios Inscritos</h3>
           <TextField
             label="Buscar por nombre"
