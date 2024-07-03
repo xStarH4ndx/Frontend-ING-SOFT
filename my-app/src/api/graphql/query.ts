@@ -27,7 +27,24 @@ export const BUSCAR_USUARIO_POR_ID = gql`
     }
   }
 `
-
 ;
+
+export const GET_INFORMACION = gql`
+  query{
+    getInformacion{
+      username
+      lastname
+      rut
+      profesion
+  }
+}
+`
+
+
+export const VERIFICAR_PAGADO= gql`
+  query{
+    verificarPago
+}
+`
 
 // ... (Definir las demás queries y mutations que necesites)

@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-  uri: 'https://april-batch-flow-tcp.trycloudflare.com/graphql', // URL de tu servidor GraphQL
+  uri: 'http://192.168.51.26:3000/graphql', // URL de tu servidor GraphQL
 });
 
 const authLink = setContext((_, { headers }) => {
