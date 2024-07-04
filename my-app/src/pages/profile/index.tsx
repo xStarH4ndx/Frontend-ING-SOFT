@@ -46,7 +46,7 @@ export const Profile: React.FC<{}> = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  href="https://wa.me/+56948667729"
+                  href="https://wa.me/+569"//Numero de telefono para wts
                   target="_blank"
                 >
                   Contact Support
